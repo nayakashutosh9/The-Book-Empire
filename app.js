@@ -173,6 +173,26 @@ app.post("/compose",function(req,res){
 });
 
 
+app.get("/terms",function(req,res){
+  res.render("info",{title:"Terms"});
+});
+
+
+app.get("/privacy",function(req,res){
+  res.render("info",{title:"Privacy Policy"});
+});
+
+
+app.get("/refund",function(req,res){
+  res.render("info",{title:"Refund Policy"});
+});
+
+
+app.get("/disclaimer",function(req,res){
+  res.render("info",{title:"Disclaimer"});
+});
+
+
 app.get("/orders",function(req,res){
   res.render("orders");
 });
