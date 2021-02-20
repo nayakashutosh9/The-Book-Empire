@@ -21,7 +21,7 @@
         <div class="col-12">
           <nav class="navbar navbar-expand-md navbar-light">
 
-            <a class="navbar-brand grow" href="index.html">BOOK EMPIRE</a>
+            <a class="navbar-brand grow" href="/">BOOK EMPIRE</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -30,19 +30,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto py-4 py-md-0">
                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="#home">Home</a>
+                  <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="#iarc">About</a>
+                  <a class="nav-link" href="/register">Register</a>
                 </li>
                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="#subsystems">Subsystems</a>
-                </li>
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="#team">Team</a>
-                </li>
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="#contact">Contact</a>
+                  <a class="nav-link" href="/cart"> Cart <span id="cartCounter"><%= session.cart ? '['+session.cart.totalQty +']' : '' %></span></a>
                 </li>
               </ul>
             </div>

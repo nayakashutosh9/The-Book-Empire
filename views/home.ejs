@@ -21,7 +21,7 @@
         <div class="col-12">
           <nav class="navbar navbar-expand-md navbar-light">
 
-            <a class="navbar-brand grow" href="index.html">BOOK EMPIRE</a>
+            <a class="navbar-brand grow" href="/">BOOK EMPIRE</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -51,20 +51,20 @@
   <%for(var i=0;i<products.length;i=i+4){%>
   <div class="row">
     <%for(var j=0;(i+j)<products.length;j++){%>
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-6">
       <div class="product-card">
         <div class="badge">Hot</div>
         <div class="product-tumb">
-          <img src="https://i.imgur.com/xdbHo4E.png" alt="">
+          <img src="images/p1.png" alt="">
         </div>
         <div class="product-details">
-          <span class="product-catagory"><a href="categories/<%=products[i].category%>"><%=products[i].category%></a></span>
-          <span class="product-catagory"><a href="/profile/<%=products[i].author%>"><%=products[i].author%></a></span>
-          <h4><a href="/product/<%=products[i]._id%>"><%=products[i].title%></a></h4>
+          <span class="product-catagory"><a href="categories/<%=products[i].category%>"><%=products[i+j].category%></a></span>
+          <span class="product-catagory"><a href="/profile/<%=products[i].author%>"><%=products[i+j].author%></a></span>
+          <h4><a href="/product/<%=products[i]._id%>"><%=products[i+j].title%></a></h4>
           <div class="product-bottom-details">
-            <div class="product-price"><small>₹<%=products[i].price%></small>₹<%=products[i].price%></div>
+            <div class="product-price"><small>₹<%=products[i+j].price%></small>₹<%=products[i+j].price%></div>
             <div class="product-links">
-              <button type="button" class="btn-primary add-to-cart" data-book="<%= JSON.stringify(products[i]) %>" name="button">Add to cart</button>
+              <button type="button" class="btn-primary add-to-cart" data-book="<%= JSON.stringify(products[i+j]) %>" name="button">Add to cart</button>
             </div>
           </div>
         </div>

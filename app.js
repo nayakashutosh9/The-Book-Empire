@@ -117,16 +117,49 @@ app.post("/update-cart",function(req,res){
       qty:1
     }
     cart.totalQty=cart.totalQty+1;
-    cart.totalPrice=cart.totalPrice+req.body.price;
+    cart.totalPrice=cart.totalPrice+parseInt(req.body.price);
   }
   else{
     cart.items[req.body._id].qty=cart.items[req.body._id].qty+1;
-    cart.totalPrice=cart.totalPrice+req.body.price;
+    cart.totalPrice=cart.totalPrice+parseInt(req.body.price);
     cart.totalQty=cart.totalQty+1;
   }
   return res.json({totalQty:req.session.cart.totalQty});
 
 });
+
+
+
+app.post("/update-cart-dec",function(req,res){
+  let cart=req.session.cart;
+  if(cart.items[req.body._id].qty<=1){
+    const bookId=req.body._id;
+    cart.totalQty=cart.totalQty-cart.items[bookId].qty;
+    cart.totalPrice=cart.totalPrice-parseInt(cart.items[bookId].item.price)*cart.items[bookId].qty;
+    delete cart.items[bookId];
+    return res.json({totalQty:req.session.cart.totalQty});
+  }
+  else{
+    cart.items[req.body._id].qty=cart.items[req.body._id].qty-1;
+    cart.totalPrice=cart.totalPrice-parseInt(req.body.price);
+    cart.totalQty=cart.totalQty-1;
+    return res.json({totalQty:req.session.cart.totalQty});
+  }
+});
+
+
+
+app.post("/cart/remove/:pid",function(req,res){
+  const bookId=req.params.pid;
+  let cart=req.session.cart;
+  cart.totalQty=cart.totalQty-cart.items[bookId].qty;
+  cart.totalPrice=cart.totalPrice-parseInt(cart.items[bookId].item.price)*cart.items[bookId].qty;
+  delete cart.items[bookId];
+  res.redirect("/cart");
+});
+
+
+
 
 
 app.get("/compose",async function(req,res){
@@ -222,7 +255,7 @@ app.get("/profile/:pname",async function(req,res){
       res.redirect("/");
     }
     else{
-      res.render("profile",{products:foundProducts});
+      res.render("home",{products:foundProducts});
     }
   });
 });

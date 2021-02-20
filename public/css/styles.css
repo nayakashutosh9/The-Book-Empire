@@ -296,6 +296,134 @@ hr {
 
 
 
+/* cart */
+
+.empty{
+  box-shadow: 2px 3px 2px 2px #b3b1b1;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.empty h1{
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+}
+.empty hr{
+  border: 1px solid #7d7a7a;
+  text-align: center;
+  color: #7d7a7a;
+}
+.ee-img{
+  text-align: center;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+.empty img{
+  height: 50%;
+  width: 50%;
+}
+.empty button{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.cart{
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cart-element img{
+  width: 150px;
+  height: 130px;
+}
+.cart-img{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.cart-info{
+  text-align: left;
+  margin-left: 10px;
+}
+.cart-price{
+  text-align: right;
+  margin-right: 20px;
+  margin-left: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.cart-element h1{
+  font-size: 1.5rem;
+  left: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 0;
+}
+.cart-element p{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+.cart-info span{
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 5px 5px;
+}
+.cart-info button{
+  border-radius: 5px;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  font-size: 1rem;
+}
+.cart-element h3{
+  font-size: 1.5rem;
+}
+.pdl{
+  text-align: left;
+  margin-left: 10px;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.pdr{
+  text-align: right;
+  margin-right: 10px;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.price-details h1{
+  font-size: 2rem;
+}
+.price-details h2{
+  font-size: 1.5rem;
+}
+.price-details button{
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 20px;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.price-details{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -468,4 +596,39 @@ hr {
     background-color: transparent;
     box-shadow: none;
   }
+
+
+
+  /* cart */
+  .empty{
+    width: 92%;
+  }
+  .ee-img{
+    text-align: center;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+  .empty img{
+    height: 120%;
+    width: 100%;
+  }
+  .price-details .empty{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .price-details h1{
+    font-size: 1.5rem;
+  }
+  .price-details button{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .cart{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
 }
