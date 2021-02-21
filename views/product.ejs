@@ -29,12 +29,27 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto py-4 py-md-0">
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="/register">Register</a>
-                </li>
+                <% if(user){ %>
+                  <%if(user.admin){%>
+                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                      <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                  <%}%>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/profile">Hi, <%=user.name%></a>
+                  </li>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                <%}%>
+                <%if(!user){%>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/register">Register</a>
+                  </li>
+                <%}%>
                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                   <a class="nav-link" href="/cart"> Cart <span id="cartCounter"><%= session.cart ? '['+session.cart.totalQty +']' : '' %></span></a>
                 </li>
@@ -55,19 +70,20 @@
       <p><a href="/">Book Empire </a>/ <a href="/categories/<%=product.category%>"><%=product.category%> </a>/ <%=product.title%></p>
       <h1><%=product.title%></h1>
       <h2>₹ <%=product.price%></h2>
-      <p><%=product.body%></p>
+      <p class="pp-body"><%=product.body%></p>
       <ul>
         <li>100% Original Product</li>
         <li>Easy Returns Available</li>
         <li>Cash on Delivery available</li>
       </ul>
+      <button type="button" class="btn-primary add-to-cart" data-book="<%= JSON.stringify(product) %>" name="button">Add to cart</button>
     </div>
   </div>
 
   <hr>
   <br><br><br>
 
-  <div class="pp-details container-fluid">
+  <div class="pp-details container">
     <h1>Description</h1>
     <p>Item weight: <%=product.weight%></p>
     <p>ISBN-10: <%=product.isbn10%></p>

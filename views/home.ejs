@@ -29,12 +29,27 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto py-4 py-md-0">
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                  <a class="nav-link" href="/register">Register</a>
-                </li>
+                <% if(user){ %>
+                  <%if(user.admin){%>
+                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                      <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                  <%}%>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/profile">Hi, <%=user.name%></a>
+                  </li>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                <%}%>
+                <%if(!user){%>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                    <a class="nav-link" href="/register">Register</a>
+                  </li>
+                <%}%>
                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                   <a class="nav-link" href="/cart"> Cart <span id="cartCounter"><%= session.cart ? '['+session.cart.totalQty +']' : '' %></span></a>
                 </li>
@@ -58,9 +73,9 @@
           <img src=<%= products[i+j].imgurl %> alt="">
         </div>
         <div class="product-details">
-          <span class="product-catagory"><a href="categories/<%=products[i].category%>"><%=products[i+j].category%></a></span>
-          <span class="product-catagory"><a href="/profile/<%=products[i].author%>"><%=products[i+j].author%></a></span>
-          <h4><a href="/product/<%=products[i]._id%>"><%=products[i+j].title%></a></h4>
+          <span class="product-catagory"><a href="categories/<%=products[i+j].category%>"><%=products[i+j].category%></a></span>
+          <span class="product-catagory"><a href="/profile/<%=products[i+j].author%>"><%=products[i+j].author%></a></span>
+          <h4><a href="/product/<%=products[i+j]._id%>"><%=products[i+j].title%></a></h4>
           <div class="product-bottom-details">
             <div class="product-price"><small>₹<%=products[i+j].price%></small>₹<%=products[i+j].price%></div>
             <div class="product-links">

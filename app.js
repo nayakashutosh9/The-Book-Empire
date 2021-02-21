@@ -90,13 +90,17 @@ const Category=new mongoose.model("Category",categorySchema);
 
 
 app.get("/",async function(req,res){
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
   await Product.find().exec(function(err,foundProducts){
     if(err){
       console.log(err);
       res.redirect("/");
     }
     else{
-      res.render("home",{products:foundProducts});
+      res.render("home",{products:foundProducts,user:curUser});
     }
   });
 });
@@ -108,7 +112,11 @@ app.get("/admin",function(req,res){
 
 
 app.get("/cart",function(req,res){
-  res.render("cart");
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
+  res.render("cart",{user:curUser});
 });
 
 app.post("/update-cart",function(req,res){
@@ -231,22 +239,38 @@ app.post("/compose",upload.single('image'),async function(req,res){
 
 
 app.get("/terms",function(req,res){
-  res.render("info",{title:"Terms"});
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
+  res.render("info",{title:"Terms",user:curUser});
 });
 
 
 app.get("/privacy",function(req,res){
-  res.render("info",{title:"Privacy Policy"});
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
+  res.render("info",{title:"Privacy Policy",user:curUser});
 });
 
 
 app.get("/refund",function(req,res){
-  res.render("info",{title:"Refund Policy"});
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
+  res.render("info",{title:"Refund Policy",user:curUser});
 });
 
 
 app.get("/disclaimer",function(req,res){
-  res.render("info",{title:"Disclaimer"});
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
+  res.render("info",{title:"Disclaimer",user:curUser});
 });
 
 
@@ -257,6 +281,10 @@ app.get("/orders",function(req,res){
 
 
 app.get("/product/:pid",async function(req,res){
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
   const productId=req.params.pid;
   await Product.findOne({_id:productId},function(err,foundProduct){
     if(err){
@@ -264,7 +292,7 @@ app.get("/product/:pid",async function(req,res){
       res.redirect("/");
     }
     else{
-      res.render("product",{product:foundProduct});
+      res.render("product",{product:foundProduct,user:curUser});
     }
   });
 });
@@ -272,6 +300,10 @@ app.get("/product/:pid",async function(req,res){
 
 
 app.get("/profile/:pname",async function(req,res){
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
   const authorName=req.params.pname;
   await Product.find({author:authorName},function(err,foundProducts){
     if(err){
@@ -279,13 +311,17 @@ app.get("/profile/:pname",async function(req,res){
       res.redirect("/");
     }
     else{
-      res.render("home",{products:foundProducts});
+      res.render("home",{products:foundProducts,user:curUser});
     }
   });
 });
 
 
 app.get("/categories/:cname",async function(req,res){
+  var curUser=null;
+  if(req.isAuthenticated()){
+    curUser=req.user;
+  }
   const categoryName=req.params.cname;
   await Product.find({category:categoryName},function(err,foundProducts){
     if(err){
@@ -293,7 +329,7 @@ app.get("/categories/:cname",async function(req,res){
       res.redirect("/");
     }
     else{
-      res.render("home",{products:foundProducts});
+      res.render("home",{products:foundProducts,user:curUser});
     }
   });
 });

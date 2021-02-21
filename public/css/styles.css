@@ -71,6 +71,11 @@ hr {
   padding: 0;
 }
 
+.navbar-brand{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .navbar-brand img {
   height: 50px;
   width: auto;
@@ -182,10 +187,10 @@ hr {
 /* home */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 .product-card {
-    width: 380px;
+    width: 320px;
     position: relative;
     box-shadow: 0 2px 7px #dfdfdf;
-    margin: 50px auto;
+    margin: 30px auto;
     background: #fafafa;
 }
 
@@ -421,6 +426,36 @@ hr {
 
 
 
+/* product page */
+.pp-left img{
+  width: 90%;
+}
+.pp-left{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.pp-body{
+  width: 70%;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.pp-right button{
+  border-radius: 10px;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+
+
+
 
 
 
@@ -629,6 +664,24 @@ hr {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+  }
+  .cart-img{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+
+
+
+  /* product page */
+  .pp-body{
+    width: 100%;
+  }
+  .pp-right{
+    text-align: center;
+    margin-left: 7px;
+    margin-right: 5px;
   }
 
 }
