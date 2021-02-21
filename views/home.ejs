@@ -50,12 +50,12 @@
 
   <%for(var i=0;i<products.length;i=i+4){%>
   <div class="row">
-    <%for(var j=0;(i+j)<products.length;j++){%>
+    <%for(var j=0;(i+j)<products.length && j<4;j++){%>
     <div class="col-md-3 col-sm-6">
       <div class="product-card">
         <div class="badge">Hot</div>
         <div class="product-tumb">
-          <img src="images/p1.png" alt="">
+          <img src=<%= products[i+j].imgurl %> alt="">
         </div>
         <div class="product-details">
           <span class="product-catagory"><a href="categories/<%=products[i].category%>"><%=products[i+j].category%></a></span>

@@ -55,7 +55,7 @@
             <%for(var key in session.cart.items){%>
               <div class="row cart-element">
                 <div class="col-xs-3 cart-img">
-                  <img src="images/p1.png" alt="">
+                  <img src=<%= session.cart.items[key].item.imgurl %> alt="">
                 </div>
                 <div class="col-xs-6 cart-info">
                   <h1><%= session.cart.items[key].item.title %></h1>

@@ -9,12 +9,19 @@ const flash=require("express-flash");
 const MongoDbStore=require("connect-mongo")(session);
 const passport=require("passport");
 const passportLocalMongoose=require("passport-local-mongoose");
+const cloudinary = require('cloudinary').v2;
+const upload=require('./multer');
 
 app.set('view engine','ejs');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.json());
+cloudinary.config({
+  cloud_name: process.env.CLD_CLOUD_NAME,
+  api_key: process.env.CLD_API_KEY,
+  api_secret: process.env.CLD_API_SECRET
+});
 
 
 
@@ -62,6 +69,8 @@ const productSchema=new mongoose.Schema({
   title:String,
   body: String,
   category: String,
+  imgurl: String,
+  imgid: String,
   author: String,
   price: String,
   weight: String,
@@ -149,12 +158,12 @@ app.post("/update-cart-dec",function(req,res){
 
 
 
-app.post("/cart/remove/:pid",function(req,res){
+app.post("/cart/remove/:pid",async function(req,res){
   const bookId=req.params.pid;
   let cart=req.session.cart;
   cart.totalQty=cart.totalQty-cart.items[bookId].qty;
   cart.totalPrice=cart.totalPrice-parseInt(cart.items[bookId].item.price)*cart.items[bookId].qty;
-  delete cart.items[bookId];
+  await delete cart.items[bookId];
   res.redirect("/cart");
 });
 
@@ -181,27 +190,42 @@ app.get("/compose",async function(req,res){
 
 
 
-app.post("/compose",function(req,res){
-  if(req.isAuthenticated() && req.user.admin===true){
-    product=new Product({
-      title: req.body.title,
-      body: req.body.body,
-      category: req.body.category,
-      author: req.body.author,
-      price: req.body.price,
-      weight: req.body.weight,
-      paperback: req.body.paperback,
-      isbn10: req.body.isbn10,
-      isbn13: req.body.isbn13,
-      dimensions: req.body.dimensions,
-      publisher: req.body.publisher,
-      language: req.body.language
-    });
-    product.save();
+app.post("/compose",upload.single('image'),async function(req,res){
+  try{
+    if(req.isAuthenticated() && req.user.admin===true){
+      await cloudinary.uploader.upload(req.file.path,async function(error, result) {
+        if(!result){
+           console.log(error)
+           res.redirect("/compose");
+        }
+        else{
+          product=new Product({
+            title: req.body.title,
+            body: req.body.body,
+            category: req.body.category,
+            imgurl: result.secure_url,
+            imgid: result.public_id,
+            author: req.body.author,
+            price: req.body.price,
+            weight: req.body.weight,
+            paperback: req.body.paperback,
+            isbn10: req.body.isbn10,
+            isbn13: req.body.isbn13,
+            dimensions: req.body.dimensions,
+            publisher: req.body.publisher,
+            language: req.body.language
+          });
+          product.save();
+          res.redirect("/compose");
+        }
+      });
+    }
+    else{
+      res.redirect("/login");
+    }
+  }catch(err){
+    console.log(err);
     res.redirect("/compose");
-  }
-  else{
-    res.redirect("/login");
   }
 });
 
