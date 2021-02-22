@@ -5,7 +5,6 @@ const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 const _=require('lodash');
 const session=require("express-session");
-const cookieParser=require('cookie-parser');
 const flash=require("express-flash");
 const MongoDbStore=require("connect-mongo")(session);
 const passport=require("passport");
@@ -33,7 +32,6 @@ let mongoStore=new MongoDbStore({
   mongooseConnection: connection,
   collection: 'sessions'
 });
-app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
