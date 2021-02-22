@@ -10,7 +10,7 @@ const MongoDbStore=require("connect-mongo")(session);
 const passport=require("passport");
 const passportLocalMongoose=require("passport-local-mongoose");
 const cloudinary = require('cloudinary').v2;
-const upload=require('./multer');
+const upload=require('./multer/multer');
 
 app.set('view engine','ejs');
 
