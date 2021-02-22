@@ -36,7 +36,7 @@
                     </li>
                   <%}%>
                   <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                    <a class="nav-link" href="/profile">Hi, <%=user.name%></a>
+                    <a class="nav-link" href="/user/<%= user._id %>">Hi, <%=user.name%></a>
                   </li>
                   <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -73,7 +73,9 @@
                   <img src=<%= session.cart.items[key].item.imgurl %> alt="">
                 </div>
                 <div class="col-xs-6 cart-info">
-                  <h1><%= session.cart.items[key].item.title %></h1>
+                  <a href="/product/<%= session.cart.items[key].item._id %>">
+                    <h1><%= session.cart.items[key].item.title %></h1>
+                  </a>
                   <p><%= session.cart.items[key].item.category %></p>
                   <p><%= session.cart.items[key].item.author %></p>
                   <p>Quantity: <button type="button" name="button" data-book="<%= JSON.stringify(session.cart.items[key].item) %>" class="qty-dec">-</button> <span class="elementQuantity"><%= session.cart.items[key].qty %></span> <button type="button" name="button" data-book="<%= JSON.stringify(session.cart.items[key].item) %>" class="qty-inc">+</button></p>
@@ -120,7 +122,15 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn-primary" name="button">Checkout</button>
+        <% if(user){ %>
+          <form action="/orders" method="post">
+            <input type="tel" class="form-control" id="formGroupExampleInput" placeholder="Phone" name="phone" required>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Address" name="address" required>
+            <button type="submit" class="btn-primary" name="button">Checkout</button>
+          </form>
+        <% }else{ %>
+          <a href="/login"><button type="button" class="btn-danger" name="button">Login to Continue</button></a>
+        <% } %>
       </div>
     </div>
   <%}%>

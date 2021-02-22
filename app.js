@@ -88,6 +88,18 @@ const categorySchema=new mongoose.Schema({
 });
 const Category=new mongoose.model("Category",categorySchema);
 
+const orderSchema=new mongoose.Schema({
+  date: String,
+  userid: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
+  items: Object,
+  phone: String,
+  address: String,
+  paymentType: {type:String,default:'COD'},
+  status: {type:String,default:'order placed'}
+});
+const Order=new mongoose.model("Order",orderSchema);
+
+
 
 app.get("/",async function(req,res){
   var curUser=null;
@@ -106,9 +118,6 @@ app.get("/",async function(req,res){
 });
 
 
-app.get("/admin",function(req,res){
-  res.render("admin");
-});
 
 
 app.get("/cart",function(req,res){
@@ -276,6 +285,105 @@ app.get("/disclaimer",function(req,res){
 
 app.get("/orders",function(req,res){
   res.render("orders");
+});
+
+
+app.get("/admin",async function(req,res){
+  var curUser=null;
+  if(req.isAuthenticated() && req.user.admin){
+    await Order.find({status:{$ne:'delivered'}}).sort({date:1}).exec(async function(err,foundOrders){
+      if(err){
+        console.log(err);
+        res.redirect("/");
+      }
+      else{
+        curUser=req.user;
+        res.render("admin",{user:curUser,orders:foundOrders});
+      }
+    });
+  }
+  else{
+    res.redirect("/");
+  }
+});
+
+
+app.post("/orders",async function(req,res){
+    if(req.isAuthenticated()){
+      const order=new Order({
+        date: new Date(),
+        userid: req.user._id,
+        items: req.session.cart.items,
+        phone: req.body.phone,
+        address: req.body.address
+      });
+      order.save();
+      await delete req.session.cart;
+      res.redirect("/");
+    }
+    else{
+      res.redirect("/login");
+    }
+});
+
+
+
+app.get("/orders/:orderid",async function(req,res){
+  if(req.isAuthenticated()){
+    const orderId=req.params.orderid;
+    await Order.findOne({_id:orderId},function(err,foundOrder){
+      if(err){
+        console.log(err);
+        res.redirect("/");
+      }
+      else{
+        res.render("orders",{user:req.user,order:foundOrder});
+      }
+    });
+  }
+  else{
+    res.redirect("/login");
+  }
+});
+
+
+
+
+
+app.get("/user/:uid",async function(req,res){
+  if(req.isAuthenticated()){
+    const userId=req.params.uid;
+    await User.find({_id:userId},async function(err,foundUser){
+      if(err){
+        console.log(err);
+        res.redirect("/");
+      }
+      else{
+        await Order.find({userid:userId},function(err,foundOrders){
+          if(err){
+            console.log(err);
+            res.redirect("/");
+          }
+          else{
+            res.render("profile",{user:req.user,orders:foundOrders});
+          }
+        });
+      }
+    });
+  }
+  else{
+    res.redirect("/login");
+  }
+});
+
+
+
+
+
+
+app.post("/orders/status",async function(req,res){
+  const result=await Order.updateOne({_id:req.body.orderId},{$set:{status:req.body.status}});
+  res.redirect("/admin");
 });
 
 
