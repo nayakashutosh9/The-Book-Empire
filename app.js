@@ -443,7 +443,12 @@ app.get("/categories/:cname",async function(req,res){
 
 
 app.get("/login",function(req,res){
-  res.render("login");
+  if(req.isAuthenticated()){
+    res.redirect("/");
+  }
+  else{
+      res.render("login",{user:null});
+  }
 });
 
 app.post("/login",function(req,res){
@@ -464,13 +469,23 @@ app.post("/login",function(req,res){
 });
 
 app.get("/logout", function(req,res){
-  req.logout();
-  res.redirect("/");
+  if(req.isAuthenticated()){
+    req.logout();
+    res.redirect("/");
+  }
+  else{
+    res.redirect("/");
+  }
 });
 
 
 app.get("/register",function(req,res){
-  res.render("register");
+  if(req.isAuthenticated()){
+    res.redirect("/");
+  }
+  else{
+      res.render("register",{user:null});
+  }
 });
 
 app.post("/register",function(req,res){
